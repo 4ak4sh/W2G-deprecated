@@ -35,7 +35,6 @@ client.on('ready', () => {
 
   client.user.setActivity("=help | =invite", { type: "STREAMING", url: "https://twitch.tv/aakash04s/about" });
 
-  // let boticon = client.user.displayAvatarURL();
 
 });
 
