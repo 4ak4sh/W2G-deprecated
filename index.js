@@ -1,6 +1,5 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
-require('dotenv').config();
 const fetch = require("node-fetch");
 const { MessageButton } = require("discord-buttons");
 require('discord-buttons')(client);
