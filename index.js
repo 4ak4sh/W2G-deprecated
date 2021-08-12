@@ -96,7 +96,7 @@ client.on('message', async (message) => {
   if (message.author.bot) return;
   if (!message.content.startsWith(prefix)) return;
 
-  const args = message.content.slice(prefix.length).trim().split(/ +/g);
+  const args = message.content.slice(prefix.length).trim().split(/ +/);
   const cmd = args.shift().toLowerCase();
 
   //Youtube together
