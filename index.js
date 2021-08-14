@@ -53,13 +53,14 @@ const ownerid = config.ownerid;
 const helpembed = new Discord.MessageEmbed()
   .setColor('#2f3136')
   .setTitle('')
-  .setDescription("Use prefix `=` before every command\nUsage `=[command]` or `=[command] <user>`")
+  .setDescription("Usage `<command>` or `<command> [user]`")
   .addFields(
     { name: "Activities", value: "`youtube` `poker` `chess`" },
     { name: "Actions", value: "`hug` `kiss` `pat` `cuddle` `tickle` `smug`" },
     { name: "Utility", value: "`help` `prefix` `stats` `ping` `vote` `guild`" }
   )
   .setThumbnail('')
+  .setFooter('Use prefix `=` before every command')
   .setAuthor('Command List for W2G', config.logo)
 
 const invitebtn = new MessageButton()
