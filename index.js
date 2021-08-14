@@ -56,7 +56,7 @@ const helpembed = new Discord.MessageEmbed()
   .setDescription("Use prefix `=` before every command")
   .addFields(
     { name: "Activities", value: "`youtube` `poker` `chess`" },
-    { name: "Actions", value: "`hug` `kiss` `pat` `cuddle` `tickle` `smug`" },
+    { name: "Actions", value: "Usage: =<command> <user>\n`hug` `kiss` `pat` `cuddle` `tickle` `smug`" },
     { name: "Utility", value: "`help` `prefix` `stats` `ping` `vote` `guild`" }
   )
   .setThumbnail('')
