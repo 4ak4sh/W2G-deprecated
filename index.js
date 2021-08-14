@@ -60,7 +60,6 @@ const helpembed = new Discord.MessageEmbed()
     { name: "Utility", value: "`help` `prefix` `stats` `ping` `vote` `guild`" }
   )
   .setThumbnail('')
-  .setFooter('Use prefix `=` before every command')
   .setAuthor('Command List for W2G', config.logo)
 
 const invitebtn = new MessageButton()
