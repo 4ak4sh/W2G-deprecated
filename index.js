@@ -53,10 +53,10 @@ const ownerid = config.ownerid;
 const helpembed = new Discord.MessageEmbed()
   .setColor('#2f3136')
   .setTitle('')
-  .setDescription("Use prefix `=` before every command")
+  .setDescription("Use prefix `=` before every command\nUsage `=[command]` or `=[command] <user>`")
   .addFields(
     { name: "Activities", value: "`youtube` `poker` `chess`" },
-    { name: "Actions", value: "Usage: `=[command] <user>`\n \n`hug` `kiss` `pat` `cuddle` `tickle` `smug`" },
+    { name: "Actions", value: "`hug` `kiss` `pat` `cuddle` `tickle` `smug`" },
     { name: "Utility", value: "`help` `prefix` `stats` `ping` `vote` `guild`" }
   )
   .setThumbnail('')
