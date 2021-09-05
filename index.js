@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const fetch = require("node-fetch");
-const { MessageButton } = require("discord-buttons");
+const { MessageButton, MessageMenuOption, MessageMenu } = require("discord-buttons");
 require('discord-buttons')(client);
 const { DiscordTogether } = require('discord-together');
 client.discordTogether = new DiscordTogether(client);
@@ -25,7 +25,7 @@ const load_dir = (dirs) => {
     }
   }
 }
-['Actions', 'Activities', 'Utility'].forEach(e => load_dir(e));
+['Activities', 'Utility'].forEach(e => load_dir(e));
 
 
 
@@ -53,14 +53,14 @@ const ownerid = config.ownerid;
 const helpembed = new Discord.MessageEmbed()
   .setColor('#2f3136')
   .setTitle('')
-  .setDescription("Usage `<command>` or `<command> [user]`")
+  .setDescription("Usage `=activity` | `=youtube`")
   .addFields(
+    {name: "Quick Menu", value: "`activities` `activity` `menu`"},
     { name: "Activities", value: "`youtube` `poker` `chess`" },
-    { name: "Actions", value: "`hug` `kiss` `pat` `cuddle` `tickle` `smug`" },
     { name: "Utility", value: "`help` `prefix` `stats` `ping` `vote` `guild`" }
   )
   .setThumbnail('')
-  .setAuthor('Command List for W2G', config.logo)
+  .setAuthor('Command List for W2G', logo)
 
 const invitebtn = new MessageButton()
   .setStyle('url')
@@ -95,6 +95,7 @@ client.on('message', async (message) => {
 
   if (message.author.bot) return;
   if (!message.content.startsWith(prefix)) return;
+
 
   const args = message.content.slice(prefix.length).trim().split(/ +/);
   const cmd = args.shift().toLowerCase();
@@ -138,44 +139,6 @@ client.on('message', async (message) => {
     client.commands.get("vote").execute(message, MessageButton, logo)
   }
 
-
-  //feed command
-
-  if (cmd === 'feed') {
-    client.commands.get('feed').execute(message)
-  }
-
-  //smug command
-
-  if (cmd === 'smug') {
-    client.commands.get("smug").execute(message)
-  }
-
-  //hug command
-  if (cmd === 'hug') {
-    client.commands.get("hug").execute(message)
-  }
-
-  //kiss command
-  if (cmd === 'kiss') {
-    client.commands.get('kiss').execute(message)
-  }
-
-  //pat command
-  if (cmd === 'pat') {
-    client.commands.get('pat').execute(message)
-  }
-
-  //tickle command
-  if (cmd === 'tickle') {
-    client.commands.get("tickle").execute(message);
-  }
-
-  //cuddle command
-  if (cmd === 'cuddle') {
-    client.commands.get("cuddle").execute(message);
-  }
-
   //ping command
   if (cmd === 'ping') {
     client.commands.get("ping").execute(client, message);
@@ -202,6 +165,134 @@ client.on('message', async (message) => {
       .setFooter(`W2G | Bot by ${ownerid}`, logo)
 
     message.channel.send(statsembed)
+  }
+
+  if (cmd === 'activities' || cmd === 'activity' || cmd === 'menus' || cmd === 'menu') {
+    let youtube = new MessageMenuOption()
+    .setLabel('YouTube Together')
+    .setDescription('Watch YouTube Together')
+    .setValue('youtube')
+    .setDefault()
+    .setEmoji('883725363828649994')
+
+    let poker = new MessageMenuOption()
+    .setLabel('Poker Night')
+    .setDescription('Play Poker Night')
+    .setValue('poker')
+    .setDefault()
+    .setEmoji('883725341703671829')
+
+    let chess = new MessageMenuOption()
+    .setLabel('Chess in the Park')
+    .setDescription('Play Chess in the Park')
+    .setValue('chess')
+    .setDefault()
+    .setEmoji('883725312528121896')
+
+    let activities = new MessageMenu()
+    .setID('activities')
+    .setMaxValues(1)
+    .setMinValues(1)
+    .setPlaceholder('Click here to select and start an activity')
+    .addOption(youtube)
+    .addOption(poker)
+    .addOption(chess)
+
+
+    let activitiesemb = new Discord.MessageEmbed()
+    .setColor('#2f3136')
+    .setImage('https://media.discordapp.net/attachments/884020469383184395/884084589335830548/w2gmenubanner.png')
+
+    message.channel.send(activitiesemb, activities)
+  }
+
+});
+
+const helpbtn = new MessageButton()
+  .setStyle('blurple')
+  .setLabel('Help')
+  .setID('helpbtn')
+
+client.on('clickMenu', async menu => {
+
+  if (menu.values[0] === 'youtube') {
+    if (!menu.clicker.member.voice.channel) {
+      menu.reply.send('Join a voice channel to use this activity', true)
+    } else {
+      dt.createTogetherCode(menu.clicker.member.voice.channelID, 'youtube').then(async invite => {
+
+        const ytembed = new Discord.MessageEmbed()
+          .setColor('#2f3136')
+          .setAuthor('Party Created', logo)
+          .setDescription(`\n**Activity:** YouTube\n**Channel:** <#${menu.clicker.member.voice.channelID}>`)
+          .setTimestamp()
+          .setFooter(`${menu.clicker.user.username}`, menu.clicker.user.displayAvatarURL({ dynamic: true }))
+
+
+        const ytbtn = new MessageButton()
+          .setStyle('url')
+          .setLabel('YouTube')
+          .setEmoji("846123374526332998")
+          .setURL(`${invite.code}`)
+
+
+        return menu.reply.send(ytembed, { buttons: [ytbtn, helpbtn] });
+      });
+    }
+  }
+
+  if (menu.values[0] === 'poker') {
+    if (!menu.clicker.member.voice.channel) { menu.reply.send('Join a voice channel to launch this activity', true) }
+    else {
+      dt.createTogetherCode(menu.clicker.member.voice.channelID, 'poker').then(async invite => {
+
+        const pokerembed = new Discord.MessageEmbed()
+          .setColor('#2f3136')
+          .setAuthor('Party Created', logo)
+          .setDescription(`\n**Activity:** Poker\n**Channel:** <#${menu.clicker.member.voice.channelID}>`)
+          .setTimestamp()
+          .setFooter(`${menu.clicker.user.username}`, menu.clicker.user.displayAvatarURL({ dynamic: true }))
+
+        const pokerbtn = new MessageButton()
+          .setStyle('url')
+          .setLabel('Poker')
+          .setEmoji('881187635706617857')
+          .setURL(`${invite.code}`);
+
+
+        return menu.reply.send({
+          embed: pokerembed,
+          buttons: [pokerbtn, helpbtn]
+        });
+      });
+    }
+  }
+
+  if (menu.values[0] === 'chess') {
+    if (!menu.clicker.member.voice.channel) {
+      menu.reply.send('Join a voice channel to use this activity', true)
+    } else {
+      dt.createTogetherCode(menu.clicker.member.voice.channelID, 'chess').then(async invite => {
+
+        const chessembed = new Discord.MessageEmbed()
+          .setColor('#2f3136')
+          .setAuthor('Party Created', logo)
+          .setDescription(`\n**Activity:** Chess\n**Channel:** <#${menu.clicker.member.voice.channelID}>`)
+          .setTimestamp()
+          .setFooter(`${menu.clicker.user.username}`, menu.clicker.user.displayAvatarURL({ dynamic: true }))
+
+
+        const chessbtn = new MessageButton()
+          .setStyle('url')
+          .setLabel('Chess')
+          .setEmoji('870434395113279589')
+          .setURL(`${invite.code}`)
+
+        return menu.reply.send(chessembed, {
+          buttons: [chessbtn, helpbtn]
+        });
+      });
+    }
   }
 
 });
