@@ -30,7 +30,7 @@ module.exports = {
 
         return message.channel.send(chessembed, {
           buttons: [chessbtn, helpbtn]
-        });
+        })
       });
     };
   }

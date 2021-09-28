@@ -39,7 +39,7 @@ client.on('ready', () => {
 
 const config = {
   prefix: "=",
-  ownerid: "Aakash#9110",
+  ownerid: "Aakash#3238",
   logo: "https://media.discordapp.net/attachments/819505009711513640/851822648320065606/w2g_logo.png"
 }
 
@@ -296,7 +296,6 @@ client.on('clickMenu', async menu => {
   }
 
 });
-
 
 
 client.login(process.env.token);
