@@ -1,14 +1,14 @@
 
-let botstats = async (Discord, client) => {
+let botstats = async (Discord, client, apiping) => {
 
     const channel = await client.channels.fetch('893791826081902653')
 
     let botstatsemb = new Discord.MessageEmbed()
         .setColor('#2f3136')
         .addFields(
-            { name: 'Status', value: '<:online:893774718337945620> Online'},
+            { name: 'Status', value: 'Online <:online:893774718337945620>'},
             { name: 'Guild Count', value: client.guilds.cache.size },
-            { name: 'Bot Latency', value: `${Math.round(client.ws.ping)}ms` }
+            { name: 'API Latency', value: `${apiping}ms` }
         )
 
     setInterval(() => {

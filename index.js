@@ -32,9 +32,11 @@ const load_dir = (dirs) => {
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}`);
 
+  let apiping = Math.round(client.ws.ping);
+
   client.user.setActivity("=help | =invite", { type: "STREAMING", url: "https://twitch.tv/aakash04s/about" });
 
-  botstats(Discord, client)
+  botstats(Discord, client, apiping)
 
 });
 
