@@ -6,7 +6,7 @@ require('discord-buttons')(client);
 const { DiscordTogether } = require('discord-together');
 client.discordTogether = new DiscordTogether(client);
 const dt = client.discordTogether;
-const {botstats} = require('./livestats')
+// const {botstats} = require('./livestats')
 
 const fs = require('fs');
 
@@ -30,13 +30,10 @@ const load_dir = (dirs) => {
 
 
 client.on('ready', () => {
+
   console.log(`Logged in as ${client.user.tag}`);
 
-  let apiping = Math.round(client.ws.ping);
-
   client.user.setActivity("=help | =invite", { type: "STREAMING", url: "https://twitch.tv/aakash04s/about" });
-
-  botstats(Discord, client, apiping)
 
 });
 
@@ -91,19 +88,19 @@ client.on('clickButton', async (button) => {
 
 })
 
-client.on('message', message => {
+// client.on('message', message => {
 
-  let autodeletechannels = ['893791826081902653']
+//   let autodeletechannels = ['893791826081902653']
 
-  if (autodeletechannels.includes(message.channel.id)) {
+//   if (autodeletechannels.includes(message.channel.id)) {
     
-    if(message.author.id === client.user.id) return;
+//     if(message.author.id === client.user.id) return;
 
-    message.delete()
+//     message.delete()
 
-  }
+//   }
 
-})
+// })
 
 
 client.on('message', async (message) => {
